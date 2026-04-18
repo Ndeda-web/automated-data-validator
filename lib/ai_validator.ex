@@ -10,14 +10,19 @@ defmodule AIValidator do
             "parts" => [
               %{
                 "text" => """
-Here is a data validation summary:
+You are a professional data analyst.
 
+Analyze the dataset summary below and generate a structured anomaly report.
+
+For each issue:
+1. Name the anomaly
+2. Explain why it is a problem
+3. State the impact
+4. Suggest a fix
+5. Assign a severity level (Low, Medium, High)
+
+Dataset Summary:
 #{summary}
-
-Please:
-- List each issue
-- Explain the impact
-- Suggest fixes
 """
               }
             ]

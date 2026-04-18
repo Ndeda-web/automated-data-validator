@@ -14,13 +14,17 @@ defmodule DataValidator do
     }
   end
 
-  def summary(data) do
-    results = validate(data)
-    """
-    Data Validation Summary:
-    - Missing emails: #{length(results.missing_email)}
-    - Negative amounts: #{length(results.negative_amount)}
-    - Duplicate IDs: #{Enum.join(results.duplicate_ids, ", ")}
-    """
-  end
+ def summary(data) do
+  results = validate(data)
+
+  """
+==============================
+📊 RULE-BASED VALIDATION
+==============================
+
+Missing emails: #{length(results.missing_email)}
+Negative amounts: #{length(results.negative_amount)}
+Duplicate IDs: #{Enum.join(results.duplicate_ids, ", ")}
+"""
+end
 end

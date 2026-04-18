@@ -18,11 +18,11 @@ defmodule AiValidator.MixProject do
     ]
   end
 
-  # Run "mix help deps" to learn about dependencies.
+  # Run "mix help compile.app" to learn about applications.
   defp deps do
     [
-        {:httpoison, "~> 2.1"},
-        {:jason, "~> 1.4"}
+      {:httpoison, "~> 2.1"},
+      {:jason, "~> 1.4"}
     ]
   end
 end
