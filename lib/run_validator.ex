@@ -5,30 +5,33 @@ defmodule RunValidator do
     data = SampleData.data()
     summary = DataValidator.summary(data)
 
-   IO.puts(summary)
+    ai_response = AIValidator.analyze(summary)
 
-    IO.puts("\n==============================")
-    IO.puts("🧠 AI-ASSISTED ANALYSIS")
-    IO.puts("==============================\n")
+    IO.puts(summary)
+    IO.puts("\nAI RESPONSE:\n")
 
-    case AIValidator.analyze(summary) do
+    # Handle both success and error cases
+    ai_text = case ai_response do
       {:error, reason} ->
-        IO.puts("AI analysis failed: #{inspect(reason)}")
-
-      suggestions ->
-        IO.puts(suggestions)
+        IO.puts("❌ AI Error: #{inspect(reason)}")
+        "Error: #{inspect(reason)}"
+      text when is_binary(text) ->
+        IO.puts(text)
+        text
     end
 
-    IO.puts("\n==============================")
-    IO.puts("⚖️ COMPARISON INSIGHT")
-    IO.puts("==============================\n")
+    # 🔥 FINAL STRUCTURE (THIS IS WHAT N8N RECEIVES)
+    payload = %{
+      summary: summary,
+      ai: ai_text
+    }
 
-    IO.puts("""
-    Rule-based validation detects issues directly.
-    AI analysis explains the issues, their impact, and suggests fixes.
-    """)
+    #HTTPoison.post(
+     # "http://localhost:5678/webhook-test/validate-data",
+     # Jason.encode!(payload),
+     # [{"Content-Type", "application/json"}]
+   # )
+
+    IO.puts("\nSent to n8n successfully 🚀")
   end
 end
-
-
-#RunValidator.start()
